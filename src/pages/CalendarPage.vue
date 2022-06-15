@@ -13,13 +13,22 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
+import { nasaService } from '../services/NasaService'
+import { logger } from '../utils/Logger'
 
 export default {
   name: "calendarPage",
   setup() {
-    
+    onMounted(async () => {
+      try {
+        
+        await nasaService.getImage()
+      } catch (error) {
+        logger.error(error)
+      }
+    })
 
     return {
       // use computer() to make it reactive
